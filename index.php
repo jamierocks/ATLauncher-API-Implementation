@@ -1,5 +1,8 @@
 <?php
+	//setup database
 	include('db.php');
+	mysql_connect($host, $user, $password) or die(mysql_error());
+	mysql_select_db($database) or die(mysql_error());
 	
 	function getPageURL() {
 		$pageURL = $_SERVER["REQUEST_URI"];
@@ -13,7 +16,10 @@
 			'pack',
 			'packs',
 			'stats',
-			'leaderboards'
+			'leaderboards',
+			'admin',
+			'psp',
+			'networktest'
 		),
 	);
 	$api_versions = array(

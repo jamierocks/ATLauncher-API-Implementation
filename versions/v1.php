@@ -7,7 +7,7 @@
 			if(count($arguments) == 3) {
 				echo 'this isnt done yet!';
 			} elseif(count($arguments) == 4) {
-				echo 'this isnt done yet';
+				echo 'this isnt done yet!';
 			} else {
 				error($api_version, $api_versions);
 			}
@@ -20,6 +20,15 @@
 		//TODO: do this
 	}
 	function leaderboards($arguments) {
+		//TODO: do this
+	}
+	function admin($arguments) {
+		//TODO: do this
+	}
+	function psp($arguments) {
+		//TODO: do this
+	}
+	function networktest($arguments) {
 		//TODO: do this
 	}
 ?>

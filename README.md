@@ -9,7 +9,7 @@ I am sorry if you find this poorly-coded, a bad-implementation, however on my be
 
 ### Pluging In Your Data
 
-To get started with the code and plug in your own data, you need to create a src/main/java/com/atlauncher/data/Constants.java file. Below is a starter to get you going:
+To get started with the code and plug in your own data, you need to create a db.php file. Below is a starter to get you going:
 
     <?php
 		$host = 'host';

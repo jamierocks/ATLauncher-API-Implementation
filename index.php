@@ -9,7 +9,9 @@
 	
 	//functions list
 	$whitelist = array(
-		'pack'
+		"v1" => array(
+			'pack'
+		),
 	);
 	$api_versions = array(
 		'v1'
@@ -18,6 +20,9 @@
 	//call the passed in function_exists
 	$method = explode("/", getPageURL());
 	$api_version = $method[0];
+	if(in_array($api_version, $api_versions)) {
+		include($api_version. '.php');
+	}
 	if(!$method[1] == null) {
 		$command = $method[1];
 	} else {
@@ -25,7 +30,7 @@
 	}
 	$arguments = $method;
 	
-	if(in_array($command, $whitelist)) {
+	if(in_array($command, $whitelist[$api_version])) {
 		if(!$method[0] == "pack") {
 			getPack($arguments);
 		} else {
@@ -61,22 +66,5 @@
 		}
 		$responce = json_encode(getResponce(true, $code, $message, null));
 		echo $responce;
-	}
-	function getPack($arguments) {
-		if(count($arguments) == 1 || count($arguments) == 2) {
-			error($api_version, $api_versions);
-		} else {
-			if(count($arguments) == 3) {
-				
-				echo 'this isnt done yet!';
-					
-			} elseif(count($arguments) == 4) {
-				
-				echo 'this isnt done yet';
-					
-			} else {
-				error($api_version, $api_versions);
-			}
-		}
 	}
 ?>

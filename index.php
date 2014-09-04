@@ -10,7 +10,10 @@
 	//functions list
 	$whitelist = array(
 		"v1" => array(
-			'pack'
+			'pack',
+			'packs',
+			'stats',
+			'leaderboards'
 		),
 	);
 	$api_versions = array(
@@ -21,7 +24,7 @@
 	$method = explode("/", getPageURL());
 	$api_version = $method[0];
 	if(in_array($api_version, $api_versions)) {
-		include($api_version. '.php');
+		include("versions/". $api_version. '.php');
 	}
 	if(!$method[1] == null) {
 		$command = $method[1];

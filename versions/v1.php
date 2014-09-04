@@ -1,5 +1,4 @@
 <?php
-
 	// methods
 	function getPack($arguments) {
 		if(count($arguments) == 1 || count($arguments) == 2) {
@@ -14,5 +13,13 @@
 			}
 		}
 	}
-
+	function packs($arguments) {
+		//TODO: do this
+	}
+	function stats($arguments) {
+		//TODO: do this
+	}
+	function leaderboards($arguments) {
+		//TODO: do this
+	}
 ?>

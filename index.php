@@ -22,7 +22,7 @@
 	if(in_array($api_version, $api_versions)) {
 		include("versions/". $api_version. '.php');
 	}
-	if(!$method[1] == null) {
+	if(count($method) > 1) {
 		$command = $method[1];
 	} else {
 		$command = null;

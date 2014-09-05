@@ -1,6 +1,6 @@
 <?php
 	// methods
-	function getPack($arguments) {
+	function getPack($arguments) { // actually pack, but since there is a function in php called pack
 		if(count($arguments) == 1 || count($arguments) == 2) {
 			error($api_version, $api_versions);
 		} else {
@@ -24,8 +24,9 @@
 	}
 	function admin($arguments) {
 		//TODO: do this
+		//This will also need a user system
 	}
-	function psp($arguments) {
+	function psp($arguments) { // not the most necessary part, but I want to do a full implementation :P
 		//TODO: do this
 	}
 	function networktest($arguments) {

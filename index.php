@@ -14,7 +14,7 @@
 	$whitelist_json = file_get_contents('versions/functions.json');
 	$whitelist = json_decode($whitelist_json, true);
 	$api_versions_json = file_get_contents('versions/versions.json');
-	$api_versions = json_decode($api_version_json, true);
+	$api_versions = json_decode($api_versions_json, true);
 	
 	//call the passed in function_exists
 	$method = explode("/", getPageURL());

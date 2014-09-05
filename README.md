@@ -21,4 +21,4 @@ To get started with the code and plug in your own data, you need to create a db.
 	?>
 	
 ### Usage
-You may be wondering how or why use this API, so aswell as telling you to look at the ATLauncher Wiki, I have made some example in php, over (here)[https://github.com/lexware/ATLauncher-API-Examples].
+You may be wondering how or why use this API, so aswell as telling you to look at the ATLauncher Wiki, I have made some example in php, over [here](https://github.com/lexware/ATLauncher-API-Examples).

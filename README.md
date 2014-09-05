@@ -4,6 +4,11 @@ ATLauncher API Implementation
 ### What is it?
 Open-source implementation of the ATLauncher API.
 
+### Links
+[ATLauncher Website](http://www.atlauncher.com)
+[ATLauncher Github](https://github.com/ATLauncher/ATLauncher)
+[ATLauncher-API-Examples](https://github.com/lexware/ATLauncher-API-Examples)
+
 ### Collaborators
 The only person but myself who has access to modify this project without having to make pull requests, is RyanTheAlmighty, I have given him collaborator permission if in the unlikely case he wishes to fix or amend something in the code.
 

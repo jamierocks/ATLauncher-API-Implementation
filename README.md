@@ -8,7 +8,7 @@ Open-source implementation of the ATLauncher API.
 The only person but myself who has access to modify this project without having to make pull requests, is RyanTheAlmighty, I have given him collaborator permission if in the unlikely case he wishes to fix or amend something in the code.
 
 ### Things to Note
-I am sorry if you find this poorly-coded, a bad-implementation, however on my behalf I barely ever do PHP and this is the largest project I have done in it.
+I am sorry if you find this poorly-coded and or a bad-implementation, however on my behalf I last did PHP 4 years ago, for a short period of time, as of now I am teaching myself PHP (like I do all programming languages), to improve upon what I would say is an alright basis for my implementation of the ATLauncher API.
 
 ### Plugging In Your Data
 

@@ -11,7 +11,8 @@
 	}
 	
 	//functions lists
-	$whitelist = json_decode('versions/versions.json');
+	$whitelist_json = file_get_contents('versions/versions.json');
+	$whitelist = json_decode($whitelist_json, true);
 	$api_versions = array(
 		'v1'
 	);
@@ -29,14 +30,11 @@
 	}
 	$arguments = $method;
 	
-	//test
-	echo $whitelist[$api_version][0];
-	
 	if(in_array($command, $whitelist[$api_version])) {
-		if(!$method[0] == "pack") {
+		if($command == "pack") {
 			getPack($arguments);
 		} else {
-			$method[0]($arguments);
+			$command($arguments);
 		}
 	} else {
 		error($api_version, $api_versions);

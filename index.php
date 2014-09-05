@@ -29,7 +29,7 @@
 	}
 	$arguments = $method;
 	
-	if(in_array($command, $whitelist[$api_version])) {
+	if(!$api_version == null && in_array($command, $whitelist[$api_version])) {
 		if($command == "pack") {
 			getPack($arguments);
 		} else {

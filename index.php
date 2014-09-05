@@ -16,7 +16,7 @@
 	$api_versions_json = file_get_contents('versions/versions.json');
 	$api_versions = json_decode($api_versions_json, true);
 	
-	//call the passed in function_exists
+	//call the passed in function
 	$method = explode("/", getPageURL());
 	$api_version = $method[0];
 	if(in_array($api_version, $api_versions)) {
@@ -29,7 +29,12 @@
 	}
 	$arguments = $method;
 	
-	if(!$api_version == null && in_array($command, $whitelist[$api_version])) {
+	if(!empty($whitelist[$api_version])) {
+		$functionlist = $whitelist[$api_version];
+	} else {
+		$functionlist = array();
+	}
+	if(!$api_version == null && in_array($command, $functionlist)) {
 		if($command == "pack") {
 			getPack($arguments);
 		} else {

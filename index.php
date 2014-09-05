@@ -10,18 +10,9 @@
 		return $url;
 	}
 	
-	//functions list
-	$whitelist = array(
-		"v1" => array(
-			'pack',
-			'packs',
-			'stats',
-			'leaderboards',
-			'admin',
-			'psp',
-			'networktest'
-		),
-	);
+	//functions lists
+	$whitelist_json = file_get_contents('versions/versions.json');
+	$whitelist = json_decode($whitelist_json, true);
 	$api_versions = array(
 		'v1'
 	);
@@ -40,10 +31,10 @@
 	$arguments = $method;
 	
 	if(in_array($command, $whitelist[$api_version])) {
-		if(!$method[0] == "pack") {
+		if($command == "pack") {
 			getPack($arguments);
 		} else {
-			$method[0]($arguments);
+			$command($arguments);
 		}
 	} else {
 		error($api_version, $api_versions);

@@ -36,7 +36,7 @@
 					'name' => $pack_array['name'],
 					'safeName' => $pack_array['safeName'],
 					'type' => $pack_array['type'],
-					'versions' => $versions,
+					'versions' => array_reverse($versions),
 					'description' => $pack_array['description'],
 					'supportURL' => $pack_array['supportURL'],
 					'websiteURL' => $pack_array['websiteURL']

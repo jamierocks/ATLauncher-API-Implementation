@@ -4,6 +4,28 @@
 	mysql_connect($host, $user, $password) or die(mysql_error());
 	mysql_select_db($database) or die(mysql_error());
 	
+	checkTable('pack');
+	
+	function checkTable($tablename) {
+		if(!mysql_num_rows(mysql_query("SHOW TABLES LIKE '". $tablename. "'")) == 1) {
+			mysql_query("CREATE TABLE ". $tablename. "(
+				id INT NOT NULL AUTO_INCREMENT, 
+				PRIMARY KEY(id), 
+				position INT, 
+				name VARCHAR(30), 
+				safeName VARCHAR(30), 
+				type VARCHAR(10), 
+				createServer TINYINT(1), 
+				leaderboards TINYINT(1), 
+				logging TINYINT(1),
+				crashReports TINYINT(1), 
+				description VARCHAR(500), 
+				supportURL VARCHAR(250), 
+				websiteURL VARCHAR(250))")
+			or die(mysql_error()); 
+		}
+	}
+	
 	function getPageURL() {
 		$pageURL = $_SERVER["REQUEST_URI"];
 		$url = str_replace("/lexlauncher/newapi/", "", $pageURL);
@@ -36,12 +58,12 @@
 	}
 	if(!$api_version == null && in_array($command, $functionlist)) {
 		if($command == "pack") {
-			getPack($arguments);
+			getPack($arguments, $api_version, $api_versions);
 		} else {
-			$command($arguments);
+			$command($arguments, $api_version, $api_versions);
 		}
 	} else {
-		error($api_version, $api_versions);
+		exit(error($api_version, $api_versions));
 	}
 	
 	//methods
@@ -69,6 +91,6 @@
 			$code = 402;
 		}
 		$responce = json_encode(getResponce(true, $code, $message, null));
-		echo $responce;
+		return $responce;
 	}
 ?>

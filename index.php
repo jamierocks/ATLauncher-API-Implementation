@@ -7,21 +7,30 @@
 	
 	function checkTable($tablename) {
 		if(!mysql_num_rows(mysql_query("SHOW TABLES LIKE '". $tablename. "'")) == 1) {
-			mysql_query("CREATE TABLE ". $tablename. "(
-				id INT NOT NULL AUTO_INCREMENT, 
-				PRIMARY KEY(id), 
-				position INT, 
-				name VARCHAR(30), 
-				safeName VARCHAR(30), 
-				type VARCHAR(10), 
-				createServer TINYINT(1), 
-				leaderboards TINYINT(1), 
-				logging TINYINT(1),
-				crashReports TINYINT(1), 
-				description VARCHAR(500), 
-				supportURL VARCHAR(250), 
-				websiteURL VARCHAR(250))")
-			or die(mysql_error()); 
+			if($tablename == "pack") {
+				mysql_query("CREATE TABLE ". $tablename. "(
+					id INT NOT NULL AUTO_INCREMENT, 
+					PRIMARY KEY(id) NOT NULL, 
+					position INT NOT NULL, 
+					name VARCHAR(30) NOT NULL, 
+					safeName VARCHAR(30) NOT NULL, 
+					type VARCHAR(10) NOT NULL, 
+					createServer TINYINT(1) NOT NULL, 
+					leaderboards TINYINT(1) NOT NULL, 
+					logging TINYINT(1) NOT NULL,
+					crashReports TINYINT(1) NOT NULL, 
+					description VARCHAR(500) NOT NULL, 
+					supportURL VARCHAR(250) NOT NULL, 
+					websiteURL VARCHAR(250) NOT NULL)")
+				or die(mysql_error()); 
+			} else {
+				mysql_query("CREATE TABLE ". $tablename. "(
+					version VARCHAR(15) NOT NULL, 
+					minecraft VARCHAR(10) NOT NULL, 
+					published INT NOT NULL,
+					__LINK VARCHAR(250) NOT NULL)")
+				or die(mysql_error()); 
+			}
 		}
 	}
 	

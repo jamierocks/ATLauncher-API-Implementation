@@ -18,12 +18,25 @@
 					exit(error($api_version, $api_versions));
 				}
 				
+				checkTable($pack_array['safeName']. 'Version');
+				$versions = array();
+				$version_sql = mysql_query("select * from ". $pack_array['safeName']. "Version");
+				while($version = mysql_fetch_array($version_sql)) {
+					$versionsResponce = array(
+						'version' => $version['version'],
+						'minecraft' => $version['minecraft'],
+						'published' => $version['published'],
+						'__LINK' => $version['__LINK']
+					);
+					$versions[] = $versionsResponce;
+				}
+				
 				$responce = array(
 					'id' => $pack_array['id'],
 					'name' => $pack_array['name'],
 					'safeName' => $pack_array['safeName'],
 					'type' => $pack_array['type'],
-					'versions' => array(),
+					'versions' => $versions,
 					'description' => $pack_array['description'],
 					'supportURL' => $pack_array['supportURL'],
 					'websiteURL' => $pack_array['websiteURL']

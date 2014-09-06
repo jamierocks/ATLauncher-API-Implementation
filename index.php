@@ -10,7 +10,7 @@
 			if($tablename == "pack") {
 				mysql_query("CREATE TABLE ". $tablename. "(
 					id INT NOT NULL AUTO_INCREMENT, 
-					PRIMARY KEY(id) NOT NULL, 
+					PRIMARY KEY(id), 
 					position INT NOT NULL, 
 					name VARCHAR(30) NOT NULL, 
 					safeName VARCHAR(30) NOT NULL, 

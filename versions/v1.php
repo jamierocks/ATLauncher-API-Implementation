@@ -118,6 +118,8 @@
 				$packs[] = $packResponce;
 			}
 			exit(getResponce(false, 200, null, $packs));
+		} else {
+			exit(error($api_version, $api_versions));
 		}
 	}
 	function stats($arguments, $api_version, $api_versions) {

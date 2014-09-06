@@ -28,7 +28,9 @@
 					version VARCHAR(15) NOT NULL, 
 					minecraft VARCHAR(10) NOT NULL, 
 					published INT NOT NULL,
-					__LINK VARCHAR(250) NOT NULL)")
+					__LINK VARCHAR(250) NOT NULL,
+					changelog VARCHAR(500) NOT NULL, 
+					recommended TINYINT(1) NOT NULL)")
 				or die(mysql_error()); 
 			}
 		}

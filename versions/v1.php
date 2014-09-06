@@ -44,7 +44,30 @@
 				
 				exit(getResponce(false, 200, null, $responce));
 			} elseif(count($arguments) == 4) { // /v1/pack/name/version
-				exit(getResponce(false, 200, null, "Not complete yet, placeholder text"));
+				checkTable($arguments[2]. 'Version');
+				$version_responce = null;
+				$version_sql = mysql_query("select * from ". $arguments[2]. "Version");
+				while($version = mysql_fetch_array($version_sql)) {
+					$recommended = true;
+					if(!$version['recommended'] == 1) {
+						$recommended = false;
+					}
+					$versionsResponce = array(
+						'version' => $version['version'],
+						'minecraftVersion' => $version['minecraft'],
+						'published' => $version['published'],
+						'changelog' => $version['changelog'],
+						'recommended' => $recommended
+					);
+					if($version['version'] == $arguments[3]) {
+						$version_responce[] = $versionsResponce;
+					}
+				}
+				if($version_responce == null) {
+					exit(error($api_version, $api_versions));
+				}
+				
+				exit(getResponce(false, 200, null, $version_responce));
 			} else {
 				exit(error($api_version, $api_versions));
 			}

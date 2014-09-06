@@ -216,8 +216,49 @@
 		}
 	}
 	function stats($arguments, $api_version, $api_versions) {
-		//TODO: do this
-		exit(getResponce(false, 200, null, "Not complete yet, placeholder text"));
+		if($arguments[2] == "exe") { // /v1/stats/exe
+			$stats_sql = mysql_query("select * from stats");
+			$stats = array();
+			$responce = 0;
+			while($stat = mysql_fetch_array($stats_sql)) {
+				if($stat['option_name'] == "exe") {
+					$responce = $stat['option_value'];
+				}
+			}
+			exit(getResponce(false, 200, null, intval($responce)));
+		} elseif($arguments[2] == "zip") { // /v1/stats/zip
+			$stats_sql = mysql_query("select * from stats");
+			$stats = array();
+			$responce = 0;
+			while($stat = mysql_fetch_array($stats_sql)) {
+				if($stat['option_name'] == "zip") {
+					$responce = $stat['option_value'];
+				}
+			}
+			exit(getResponce(false, 200, null, intval($responce)));
+		} elseif($arguments[2] == "jar") { // /v1/stats/jar
+			$stats_sql = mysql_query("select * from stats");
+			$stats = array();
+			$responce = 0;
+			while($stat = mysql_fetch_array($stats_sql)) {
+				if($stat['option_name'] == "jar") {
+					$responce = $stat['option_value'];
+				}
+			}
+			exit(getResponce(false, 200, null, intval($responce)));
+		} elseif($arguments[2] == "all") { // /v1/stats/all
+			$stats_sql = mysql_query("select * from stats");
+			$stats = array();
+			$responce = 0;
+			while($stat = mysql_fetch_array($stats_sql)) {
+				if($stat['option_name'] == "exe" || $stat['option_name'] == "zip" || $stat['option_name'] == "jar") {
+					$responce = intval($responce) + intval($stat['option_value']);
+				}
+			}
+			exit(getResponce(false, 200, null, $responce));
+		} else {
+			exit(error($api_version, $api_versions));
+		}
 	}
 	function leaderboards($arguments, $api_version, $api_versions) {
 		//TODO: do this

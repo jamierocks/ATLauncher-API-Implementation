@@ -4,8 +4,9 @@
 	mysql_connect($host, $user, $password) or die(mysql_error());
 	mysql_select_db($database) or die(mysql_error());
 	checkTable('pack');
+	checkTable('stats');
 	
-	function checkTable($tablename) {
+	function checkTable($tablename) { // Used for testing purposes, will probably not be in final version.
 		if(!mysql_num_rows(mysql_query("SHOW TABLES LIKE '". $tablename. "'")) == 1) {
 			if($tablename == "pack") {
 				mysql_query("CREATE TABLE ". $tablename. "(
@@ -23,6 +24,19 @@
 					supportURL VARCHAR(250) NOT NULL, 
 					websiteURL VARCHAR(250) NOT NULL)")
 				or die(mysql_error()); 
+			} elseif($tablename == "stats") {
+				mysql_query("CREATE TABLE ". $tablename. "(
+					option_id INT NOT NULL AUTO_INCREMENT, 
+					PRIMARY KEY(option_id),
+					option_name VARCHAR(25) NOT NULL, 
+					option_value INT NOT NULL)")
+				or die(mysql_error()); 
+				$sql1 = "INSERT INTO `packs`.`stats` (`option_id`, `option_name`, `option_value`) VALUES (NULL, 'exe', '0');";
+				$sql2 = "INSERT INTO `packs`.`stats` (`option_id`, `option_name`, `option_value`) VALUES (NULL, 'zip', '0');";
+				$sql3 = "INSERT INTO `packs`.`stats` (`option_id`, `option_name`, `option_value`) VALUES (NULL, 'jar', '0');";
+				mysql_query($sql1) or die(mysql_error());
+				mysql_query($sql2) or die(mysql_error());
+				mysql_query($sql3) or die(mysql_error());
 			} else {
 				mysql_query("CREATE TABLE ". $tablename. "(
 					version VARCHAR(15) NOT NULL, 
@@ -81,7 +95,7 @@
 	
 	//methods
 	function getResponce($error, $code, $message, $array) {
-		if($error == null) {
+		if($error == null && !$error == 0) {
 			if($array == null) {
 				$error = true;
 			} else {

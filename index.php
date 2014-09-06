@@ -30,7 +30,10 @@
 					published INT NOT NULL,
 					__LINK VARCHAR(250) NOT NULL,
 					changelog VARCHAR(500) NOT NULL, 
-					recommended TINYINT(1) NOT NULL)")
+					recommended TINYINT(1) NOT NULL,
+					hasJson TINYINT(1) NOT NULL,
+					canUpdate TINYINT(1) NOT NULL,
+					isDev TINYINT(1) NOT NULL)")
 				or die(mysql_error()); 
 			}
 		}

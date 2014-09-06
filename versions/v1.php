@@ -118,6 +118,99 @@
 				$packs[] = $packResponce;
 			}
 			exit(getResponce(false, 200, null, $packs));
+		} elseif($arguments[2] == "full" && $arguments[3] == "public") {
+			$pack_sql = mysql_query("select * from pack");
+			$packs = array();
+			$pack_array = null;
+			while($pack = mysql_fetch_array($pack_sql)) {
+				$version_sql = mysql_query("select * from ". $pack['safeName']. "Version");
+				$version_responce = array();
+				while($version = mysql_fetch_array($version_sql)) {
+					$versionsResponce = array(
+						'version' => $version['version'],
+						'minecraft' => $version['minecraft'],
+						'published' => $version['published'],
+						'__LINK' => $version['__LINK']
+					);
+					$version_responce[] = $versionsResponce;
+				}
+				$packResponce = array(
+					'id' => $pack['id'],
+					'name' => $pack['name'],
+					'safeName' => $pack['safeName'],
+					'versions' => array_reverse($version_responce),
+					'type' => $pack['type'],
+					'description' => $pack['description'],
+					'supportURL' => $pack['supportURL'],
+					'websiteURL' => $pack['websiteURL']
+				);
+				if($packResponce['type'] == "public") {
+					$packs[] = $packResponce;
+				}
+			}
+			exit(getResponce(false, 200, null, $packs));
+		} elseif($arguments[2] == "full" && $arguments[3] == "semipublic") {
+			$pack_sql = mysql_query("select * from pack");
+			$packs = array();
+			$pack_array = null;
+			while($pack = mysql_fetch_array($pack_sql)) {
+				$version_sql = mysql_query("select * from ". $pack['safeName']. "Version");
+				$version_responce = array();
+				while($version = mysql_fetch_array($version_sql)) {
+					$versionsResponce = array(
+						'version' => $version['version'],
+						'minecraft' => $version['minecraft'],
+						'published' => $version['published'],
+						'__LINK' => $version['__LINK']
+					);
+					$version_responce[] = $versionsResponce;
+				}
+				$packResponce = array(
+					'id' => $pack['id'],
+					'name' => $pack['name'],
+					'safeName' => $pack['safeName'],
+					'versions' => array_reverse($version_responce),
+					'type' => $pack['type'],
+					'description' => $pack['description'],
+					'supportURL' => $pack['supportURL'],
+					'websiteURL' => $pack['websiteURL']
+				);
+				if($packResponce['type'] == "semipublic") {
+					$packs[] = $packResponce;
+				}
+			}
+			exit(getResponce(false, 200, null, $packs));
+		} elseif($arguments[2] == "full" && $arguments[3] == "private") {
+			$pack_sql = mysql_query("select * from pack");
+			$packs = array();
+			$pack_array = null;
+			while($pack = mysql_fetch_array($pack_sql)) {
+				$version_sql = mysql_query("select * from ". $pack['safeName']. "Version");
+				$version_responce = array();
+				while($version = mysql_fetch_array($version_sql)) {
+					$versionsResponce = array(
+						'version' => $version['version'],
+						'minecraft' => $version['minecraft'],
+						'published' => $version['published'],
+						'__LINK' => $version['__LINK']
+					);
+					$version_responce[] = $versionsResponce;
+				}
+				$packResponce = array(
+					'id' => $pack['id'],
+					'name' => $pack['name'],
+					'safeName' => $pack['safeName'],
+					'versions' => array_reverse($version_responce),
+					'type' => $pack['type'],
+					'description' => $pack['description'],
+					'supportURL' => $pack['supportURL'],
+					'websiteURL' => $pack['websiteURL']
+				);
+				if($packResponce['type'] == "private") {
+					$packs[] = $packResponce;
+				}
+			}
+			exit(getResponce(false, 200, null, $packs));
 		} else {
 			exit(error($api_version, $api_versions));
 		}

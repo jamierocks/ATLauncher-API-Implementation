@@ -5,7 +5,31 @@
 			exit(error($api_version, $api_versions));
 		} else {
 			if(count($arguments) == 3) { // /v1/pack/name
-				echo 'this isnt done yet!';
+				$pack_sql = mysql_query("select * from pack");
+				$packs = array();
+				$pack_array = null;
+				while($pack = mysql_fetch_array($pack_sql)) {
+					$packs[] = $pack;
+					if($pack['safeName'] == $arguments[2]) {
+						$pack_array = $pack;
+					}
+				}
+				if($pack_array == null) {
+					exit(error($api_version, $api_versions));
+				}
+				
+				$responce = array(
+					'id' => $pack_array['id'],
+					'name' => $pack_array['name'],
+					'safeName' => $pack_array['safeName'],
+					'type' => $pack_array['type'],
+					'versions' => array(),
+					'description' => $pack_array['description'],
+					'supportURL' => $pack_array['supportURL'],
+					'websiteURL' => $pack_array['websiteURL']
+				);
+				
+				exit(getResponce(false, 200, null, $responce));
 			} elseif(count($arguments) == 4) { // /v1/pack/name/version
 				echo 'this isnt done yet!';
 			} else {

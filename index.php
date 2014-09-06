@@ -3,7 +3,6 @@
 	include('db.php');
 	mysql_connect($host, $user, $password) or die(mysql_error());
 	mysql_select_db($database) or die(mysql_error());
-	
 	checkTable('pack');
 	
 	function checkTable($tablename) {
@@ -36,7 +35,7 @@
 	$whitelist_json = file_get_contents('versions/functions.json');
 	$whitelist = json_decode($whitelist_json, true);
 	$api_versions_json = file_get_contents('versions/versions.json');
-	$api_versions = json_decode($api_versions_json, true);
+	$api_versions = json_decode($api_versions_json, true)['versions'];
 	
 	//call the passed in function
 	$method = explode("/", getPageURL());
@@ -81,7 +80,7 @@
 			"message" => $message,
 			"data" => $array
 		);
-		return $responce;
+		return json_encode($responce);
 	}
 	function error($api_version, $api_versions) {
 		$message = "API Call Path Not Found";
@@ -90,7 +89,6 @@
 			$message = "API Version Not Specified";
 			$code = 402;
 		}
-		$responce = json_encode(getResponce(true, $code, $message, null));
-		return $responce;
+		return getResponce(true, $code, $message, null);
 	}
 ?>

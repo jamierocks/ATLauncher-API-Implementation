@@ -44,7 +44,7 @@
 				
 				exit(getResponce(false, 200, null, $responce));
 			} elseif(count($arguments) == 4) { // /v1/pack/name/version
-				echo 'this isnt done yet!';
+				exit(getResponce(false, 200, null, "Not complete yet, placeholder text"));
 			} else {
 				exit(error($api_version, $api_versions));
 			}
@@ -52,21 +52,27 @@
 	}
 	function packs($arguments, $api_version, $api_versions) {
 		//TODO: do this
+		exit(getResponce(false, 200, null, "Not complete yet, placeholder text"));
 	}
 	function stats($arguments, $api_version, $api_versions) {
 		//TODO: do this
+		exit(getResponce(false, 200, null, "Not complete yet, placeholder text"));
 	}
 	function leaderboards($arguments, $api_version, $api_versions) {
 		//TODO: do this
+		exit(getResponce(false, 200, null, "Not complete yet, placeholder text"));
 	}
 	function admin($arguments, $api_version, $api_versions) {
 		//TODO: do this
 		//This will also need a user system
+		exit(getResponce(false, 200, null, "Not complete yet, placeholder text"));
 	}
 	function psp($arguments, $api_version, $api_versions) { // not the most necessary part, but I want to do a full implementation :P
 		//TODO: do this
+		exit(getResponce(false, 200, null, "Not complete yet, placeholder text"));
 	}
 	function networktest($arguments, $api_version, $api_versions) {
 		//TODO: do this
+		exit(getResponce(false, 200, null, "Not complete yet, placeholder text"));
 	}
 ?>

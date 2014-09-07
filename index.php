@@ -21,6 +21,7 @@
 	mysql_select_db($database) or die(mysql_error());
 	checkTable('pack');
 	checkTable('stats');
+	checkTable('packdata');
 	
 	function checkTable($tablename) { // Used for testing purposes, will probably not be in final version.
 		if(!mysql_num_rows(mysql_query("SHOW TABLES LIKE '". $tablename. "'")) == 1) {
@@ -55,7 +56,7 @@
 				mysql_query($sql3) or die(mysql_error());
 			} elseif($tablename == "packdata") {
 				mysql_query("CREATE TABLE ". $tablename. "(
-					pack_id INT NOT NULL 
+					pack_id INT NOT NULL,
 					pack_name VARCHAR(25) NOT NULL, 
 					pack_installed INT NOT NULL)")
 				or die(mysql_error());

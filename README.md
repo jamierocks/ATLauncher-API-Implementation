@@ -18,9 +18,10 @@ The only person but myself who has access to modify this project without having 
 I am sorry if you find this poorly-coded and or a bad-implementation, however on my behalf I last did PHP 4 years ago, for a short period of time, as of now I am teaching myself PHP (like I do all programming languages), to improve upon what I would say is an alright basis for my implementation of the ATLauncher API.
 
 ### Plugging In Your Data
-To get started with the code and plug in your own data, you need to create a db.php file. Below is a starter to get you going:
+To get started with the code and plug in your own data, you need to create a constants.php file. Below is a starter to get you going:
 
     <?php
+		$url_cutoff = '/something/api/'; 
 		$host = 'host';
 		$user = 'user';
 		$password = 'password';

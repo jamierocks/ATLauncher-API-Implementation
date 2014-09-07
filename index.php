@@ -16,7 +16,7 @@
 	*/
 
 	//setup database
-	include('db.php');
+	include('constants.php');
 	mysql_connect($host, $user, $password) or die(mysql_error());
 	mysql_select_db($database) or die(mysql_error());
 	checkTable('pack');
@@ -54,12 +54,6 @@
 				mysql_query($sql1) or die(mysql_error());
 				mysql_query($sql2) or die(mysql_error());
 				mysql_query($sql3) or die(mysql_error());
-			} elseif($tablename == "packdata") {
-				mysql_query("CREATE TABLE ". $tablename. "(
-					pack_id INT NOT NULL,
-					pack_name VARCHAR(25) NOT NULL, 
-					pack_installed INT NOT NULL)")
-				or die(mysql_error());
 			} else {
 				mysql_query("CREATE TABLE ". $tablename. "(
 					version VARCHAR(15) NOT NULL, 
@@ -70,7 +64,8 @@
 					recommended TINYINT(1) NOT NULL,
 					hasJson TINYINT(1) NOT NULL,
 					canUpdate TINYINT(1) NOT NULL,
-					isDev TINYINT(1) NOT NULL)")
+					isDev TINYINT(1) NOT NULL,
+					installed INT NOT NULL)")
 				or die(mysql_error()); 
 			}
 		}
@@ -78,7 +73,7 @@
 	
 	function getPageURL() {
 		$pageURL = $_SERVER["REQUEST_URI"];
-		$url = str_replace("/lexlauncher/newapi/", "", $pageURL);
+		$url = str_replace($url_cutoff, "", $pageURL);
 		return $url;
 	}
 	

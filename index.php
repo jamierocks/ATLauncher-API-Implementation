@@ -53,6 +53,12 @@
 				mysql_query($sql1) or die(mysql_error());
 				mysql_query($sql2) or die(mysql_error());
 				mysql_query($sql3) or die(mysql_error());
+			} elseif($tablename == "packdata") {
+				mysql_query("CREATE TABLE ". $tablename. "(
+					pack_id INT NOT NULL 
+					pack_name VARCHAR(25) NOT NULL, 
+					pack_installed INT NOT NULL)")
+				or die(mysql_error());
 			} else {
 				mysql_query("CREATE TABLE ". $tablename. "(
 					version VARCHAR(15) NOT NULL, 

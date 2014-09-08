@@ -28,7 +28,7 @@
 				}
 			}
 			if($pack_array == null) {
-				exit(error($api_version, $api_versions));
+				return error($api_version, $api_versions);
 			}
 				
 			checkTable($pack_array['safeName']. 'Version');
@@ -44,7 +44,7 @@
 				$versions[] = $versionsResponce;
 			}
 				
-			$responce = array(
+			$response = array(
 				'id' => $pack_array['id'],
 				'name' => $pack_array['name'],
 				'safeName' => $pack_array['safeName'],
@@ -55,17 +55,17 @@
 				'websiteURL' => $pack_array['websiteURL']
 			);
 				
-			exit(getResponce(false, 200, null, $responce));
+			return getResponce(false, 200, null, $response);
 		} elseif(count($arguments) == 4) { // /v1/pack/name/version
 			checkTable($arguments[2]. 'Version');
-			$version_responce = null;
+			$version_response = null;
 			$version_sql = mysql_query("select * from ". $arguments[2]. "Version");
 			while($version = mysql_fetch_array($version_sql)) {
 				$recommended = true;
 				if(!$version['recommended'] == 1) {
 					$recommended = false;
 				}
-				$versionsResponce = array(
+				$versionsResponse = array(
 					'version' => $version['version'],
 					'minecraftVersion' => $version['minecraft'],
 					'published' => $version['published'],
@@ -73,22 +73,22 @@
 					'recommended' => $recommended
 				);
 				if($version['version'] == $arguments[3]) {
-					$version_responce[] = $versionsResponce;
+					$version_response[] = $versionsResponse;
 				}
 			}
-			if($version_responce == null) {
-				exit(error($api_version, $api_versions));
+			if($version_response == null) {
+				return error($api_version, $api_versions);
 			}
 				
-			exit(getResponce(false, 200, null, $version_responce));
+			return getResponse(false, 200, null, $version_response);
 		} elseif($arguments[3] == 'installed') {
 			if(count($arguments) == 6) {
 				// time out and +1 to installed variable
 			} else {
-				exit(getResponce(true, 404, 'Version Not Found!', null));
+				return getResponse(true, 404, 'Version Not Found!', null);
 			}
 		} else {
-			exit(error($api_version, $api_versions));
+			return error($api_version, $api_versions);
 		}
 	}
 	function packs($arguments, $api_version, $api_versions) {
@@ -97,45 +97,45 @@
 			$packs = array();
 			$pack_array = null;
 			while($pack = mysql_fetch_array($pack_sql)) {
-				$packResponce = array(
+				$packResponse = array(
 					'id' => $pack['id'],
 					'name' => $pack['name'],
 					'safeName' => $pack['safeName'],
 					'type' => $pack['type'],
 					'__LINK' => $pack['websiteURL']
 				);
-				$packs[] = $packResponce;
+				$packs[] = $packResponse;
 			}
-			exit(getResponce(false, 200, null, $packs));
+			return getResponse(false, 200, null, $packs);
 		} elseif($arguments[2] == "full" && $arguments[3] == "all") { // /v1/packs/full/all
 			$pack_sql = mysql_query("select * from pack");
 			$packs = array();
 			$pack_array = null;
 			while($pack = mysql_fetch_array($pack_sql)) {
 				$version_sql = mysql_query("select * from ". $pack['safeName']. "Version");
-				$version_responce = array();
+				$version_response = array();
 				while($version = mysql_fetch_array($version_sql)) {
-					$versionsResponce = array(
+					$versionsResponse = array(
 						'version' => $version['version'],
 						'minecraft' => $version['minecraft'],
 						'published' => $version['published'],
 						'__LINK' => $version['__LINK']
 					);
-					$version_responce[] = $versionsResponce;
+					$version_response[] = $versionsResponse;
 				}
 				$packResponce = array(
 					'id' => $pack['id'],
 					'name' => $pack['name'],
 					'safeName' => $pack['safeName'],
-					'versions' => array_reverse($version_responce),
+					'versions' => array_reverse($version_response),
 					'type' => $pack['type'],
 					'description' => $pack['description'],
 					'supportURL' => $pack['supportURL'],
 					'websiteURL' => $pack['websiteURL']
 				);
-				$packs[] = $packResponce;
+				$packs[] = $packResponse;
 			}
-			exit(getResponce(false, 200, null, $packs));
+			return getResponse(false, 200, null, $packs);
 		} elseif($arguments[2] == "full" && $arguments[3] == "public") {
 			$pack_sql = mysql_query("select * from pack");
 			$packs = array();
@@ -144,67 +144,67 @@
 				$version_sql = mysql_query("select * from ". $pack['safeName']. "Version");
 				$version_responce = array();
 				while($version = mysql_fetch_array($version_sql)) {
-					$versionsResponce = array(
+					$versionsResponse = array(
 						'version' => $version['version'],
 						'minecraft' => $version['minecraft'],
 						'published' => $version['published'],
 						'__LINK' => $version['__LINK']
 					);
-					$version_responce[] = $versionsResponce;
+					$version_response[] = $versionsResponse;
 				}
-				$packResponce = array(
+				$packResponse = array(
 					'id' => $pack['id'],
 					'name' => $pack['name'],
 					'safeName' => $pack['safeName'],
-					'versions' => array_reverse($version_responce),
+					'versions' => array_reverse($version_response),
 					'type' => $pack['type'],
 					'description' => $pack['description'],
 					'supportURL' => $pack['supportURL'],
 					'websiteURL' => $pack['websiteURL']
 				);
-				if($packResponce['type'] == "public") {
-					$packs[] = $packResponce;
+				if($packResponse['type'] == "public") {
+					$packs[] = $packResponse;
 				}
 			}
-			exit(getResponce(false, 200, null, $packs));
+			return getResponse(false, 200, null, $packs);
 		} elseif($arguments[2] == "full" && $arguments[3] == "semipublic") {
 			$pack_sql = mysql_query("select * from pack");
 			$packs = array();
 			$pack_array = null;
 			while($pack = mysql_fetch_array($pack_sql)) {
 				$version_sql = mysql_query("select * from ". $pack['safeName']. "Version");
-				$version_responce = array();
+				$version_response = array();
 				while($version = mysql_fetch_array($version_sql)) {
-					$versionsResponce = array(
+					$versionsResponse = array(
 						'version' => $version['version'],
 						'minecraft' => $version['minecraft'],
 						'published' => $version['published'],
 						'__LINK' => $version['__LINK']
 					);
-					$version_responce[] = $versionsResponce;
+					$version_response[] = $versionsResponse;
 				}
-				$packResponce = array(
+				$packResponse = array(
 					'id' => $pack['id'],
 					'name' => $pack['name'],
 					'safeName' => $pack['safeName'],
-					'versions' => array_reverse($version_responce),
+					'versions' => array_reverse($version_response),
 					'type' => $pack['type'],
 					'description' => $pack['description'],
 					'supportURL' => $pack['supportURL'],
 					'websiteURL' => $pack['websiteURL']
 				);
-				if($packResponce['type'] == "semipublic") {
-					$packs[] = $packResponce;
+				if($packResponse['type'] == "semipublic") {
+					$packs[] = $packResponse;
 				}
 			}
-			exit(getResponce(false, 200, null, $packs));
+			return getResponse(false, 200, null, $packs);
 		} elseif($arguments[2] == "full" && $arguments[3] == "private") {
 			$pack_sql = mysql_query("select * from pack");
 			$packs = array();
 			$pack_array = null;
 			while($pack = mysql_fetch_array($pack_sql)) {
 				$version_sql = mysql_query("select * from ". $pack['safeName']. "Version");
-				$version_responce = array();
+				$version_response = array();
 				while($version = mysql_fetch_array($version_sql)) {
 					$versionsResponce = array(
 						'version' => $version['version'],
@@ -212,87 +212,84 @@
 						'published' => $version['published'],
 						'__LINK' => $version['__LINK']
 					);
-					$version_responce[] = $versionsResponce;
+					$version_response[] = $versionsResponse;
 				}
-				$packResponce = array(
+				$packResponse = array(
 					'id' => $pack['id'],
 					'name' => $pack['name'],
 					'safeName' => $pack['safeName'],
-					'versions' => array_reverse($version_responce),
+					'versions' => array_reverse($version_response),
 					'type' => $pack['type'],
 					'description' => $pack['description'],
 					'supportURL' => $pack['supportURL'],
 					'websiteURL' => $pack['websiteURL']
 				);
-				if($packResponce['type'] == "private") {
-					$packs[] = $packResponce;
+				if($packResponse['type'] == "private") {
+					$packs[] = $packResponse;
 				}
 			}
-			exit(getResponce(false, 200, null, $packs));
+			return getResponse(false, 200, null, $packs);
 		} else {
-			exit(error($api_version, $api_versions));
+			return error($api_version, $api_versions);
 		}
 	}
 	function stats($arguments, $api_version, $api_versions) {
 		if($arguments[2] == "exe") { // /v1/stats/exe
 			$stats_sql = mysql_query("select * from stats");
 			$stats = array();
-			$responce = 0;
+			$response = 0;
 			while($stat = mysql_fetch_array($stats_sql)) {
 				if($stat['option_name'] == "exe") {
-					$responce = $stat['option_value'];
+					$response = intval($stat['option_value']);
 				}
 			}
-			exit(getResponce(false, 200, null, intval($responce)));
 		} elseif($arguments[2] == "zip") { // /v1/stats/zip
 			$stats_sql = mysql_query("select * from stats");
 			$stats = array();
-			$responce = 0;
+			$response = 0;
 			while($stat = mysql_fetch_array($stats_sql)) {
 				if($stat['option_name'] == "zip") {
-					$responce = $stat['option_value'];
+					$response = intval($stat['option_value']);
 				}
 			}
-			exit(getResponce(false, 200, null, intval($responce)));
 		} elseif($arguments[2] == "jar") { // /v1/stats/jar
 			$stats_sql = mysql_query("select * from stats");
 			$stats = array();
-			$responce = 0;
+			$response = 0;
 			while($stat = mysql_fetch_array($stats_sql)) {
 				if($stat['option_name'] == "jar") {
-					$responce = $stat['option_value'];
+					$response = intval($stat['option_value']);
 				}
 			}
-			exit(getResponce(false, 200, null, intval($responce)));
 		} elseif($arguments[2] == "all") { // /v1/stats/all
 			$stats_sql = mysql_query("select * from stats");
 			$stats = array();
-			$responce = 0;
+			$response = 0;
 			while($stat = mysql_fetch_array($stats_sql)) {
 				if($stat['option_name'] == "exe" || $stat['option_name'] == "zip" || $stat['option_name'] == "jar") {
-					$responce = intval($responce) + intval($stat['option_value']);
+					$response = intval($response) + intval($stat['option_value']);
 				}
 			}
-			exit(getResponce(false, 200, null, $responce));
 		} else {
-			exit(error($api_version, $api_versions));
+			return error($api_version, $api_versions);
 		}
+		return getResponse(false, 200, null, $response);
 	}
 	function leaderboards($arguments, $api_version, $api_versions) {
 		//TODO: do this
-		exit(getResponce(false, 200, null, "Not complete yet, placeholder text"));
+		return getResponse(false, 200, null, "Not complete yet, placeholder text");
 	}
 	function admin($arguments, $api_version, $api_versions) {
 		//TODO: do this
 		//This will also need a user system
-		exit(getResponce(false, 200, null, "Not complete yet, placeholder text"));
+		return getResponse(false, 200, null, "Not complete yet, placeholder text");
 	}
 	function psp($arguments, $api_version, $api_versions) { // not the most necessary part, but I want to do a full implementation :P
 		//TODO: do this
-		exit(getResponce(false, 200, null, "Not complete yet, placeholder text"));
+		return getResponse(false, 200, null, "Not complete yet, placeholder text");
 	}
 	function networktest($arguments, $api_version, $api_versions) {
 		//TODO: do this
-		exit(getResponce(false, 200, null, "Not complete yet, placeholder text"));
+		return getResponse(false, 200, null, "Not complete yet, placeholder text");
 	}
 ?>

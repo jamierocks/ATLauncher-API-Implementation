@@ -107,16 +107,16 @@
 	}
 	if(!$api_version == null && in_array($command, $functionlist)) {
 		if($command == "pack") {
-			getPack($arguments, $api_version, $api_versions);
+			printResponse(getPack($arguments, $api_version, $api_versions));
 		} else {
-			$command($arguments, $api_version, $api_versions);
+			printResponse($command($arguments, $api_version, $api_versions));
 		}
 	} else {
-		exit(error($api_version, $api_versions));
+		printResponse(error($api_version, $api_versions));
 	}
 	
 	//methods
-	function getResponce($error, $code, $message, $array) {
+	function getResponse($error, $code, $message, $array) {
 		if($error == null && !$error == 0) {
 			if($array == null) {
 				$error = true;
@@ -124,13 +124,13 @@
 				$error = false;
 			}
 		}
-		$responce = array(
+		$response = array(
 			"error" => $error,
 			"code" => $code,
 			"message" => $message,
 			"data" => $array
 		);
-		return json_encode($responce);
+		return json_encode($response);
 	}
 	function error($api_version, $api_versions) {
 		$message = "API Call Path Not Found";
@@ -139,6 +139,9 @@
 			$message = "API Version Not Specified";
 			$code = 402;
 		}
-		return getResponce(true, $code, $message, null);
+		return getResponse(true, $code, $message, null);
+	}
+	function printResponse($response) {
+		exit($response);
 	}
 ?>

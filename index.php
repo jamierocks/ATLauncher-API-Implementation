@@ -23,6 +23,9 @@
 	checkTable('stats');
 	checkTable('packdata');
 	
+	//Set header
+	header('Content-type: application/json');
+	
 	function checkTable($tablename) { // Used for testing purposes, will probably not be in final version.
 		if(!mysql_num_rows(mysql_query("SHOW TABLES LIKE '". $tablename. "'")) == 1) {
 			if($tablename == "pack") {
@@ -72,6 +75,7 @@
 	}
 	
 	function getPageURL() {
+		include('constants.php');
 		$pageURL = $_SERVER["REQUEST_URI"];
 		$url = str_replace($url_cutoff, "", $pageURL);
 		return $url;
